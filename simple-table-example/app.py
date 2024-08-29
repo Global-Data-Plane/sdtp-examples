@@ -45,8 +45,13 @@ from conf import SDTP_PATH
 
 from sdtp import sdtp_server_blueprint
 from flask import Flask
+from flask_cors import CORS
+
 
 app = Flask(__name__)
+# turn on CORS
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 app.register_blueprint(sdtp_server_blueprint)
 

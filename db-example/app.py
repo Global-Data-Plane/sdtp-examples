@@ -35,6 +35,7 @@ from glob import glob
 from json import load
 import datetime
 
+
 '''
 This is a simple SDTP Server, designed primarily for illustrative purposes -- this server is configured
 by the two variables SDTP_PATH and TABLE_FACTORIES in conf.py.  See the documentation in sample_conf.py.
@@ -46,6 +47,8 @@ This is a very thin overlay on the server in sdtp_server.py, with a /, /help met
 from sdtp import sdtp_server_blueprint, SDMLTable,  jsonifiable_column, jsonifiable_rows
 from sdtp import  SDML_NUMBER, SDML_BOOLEAN, SDML_DATE, SDML_DATETIME, SDML_TIME_OF_DAY, SDML_STRING
 from flask import Flask
+from flask_cors import CORS
+
 import sqlite3
 import re
 from sqlite_interface import SDMLSqliteTable, SQLiteConnection
@@ -109,6 +112,8 @@ for (name, schema) in tables.items():
     sdtp_server_blueprint.table_server.add_sdtp_table({'name': name, 'table': table})
 
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 app.register_blueprint(sdtp_server_blueprint)
 
