@@ -46,6 +46,7 @@ from conf import SDTP_PATH
 from sdtp import sdtp_server_blueprint
 from flask import Flask
 from flask_cors import CORS
+from pathlib import Path
 
 
 app = Flask(__name__)
@@ -55,14 +56,17 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 
 app.register_blueprint(sdtp_server_blueprint)
 
+
 #
-# Load a table.  filename is a valid path and a JSON file.
+# Load a table.  filename is a valid path and an SDML file.
 # 
 
 def _load_table(filename):
+    # filename: path to an SDML file
+    # The filename is <path>/table_name.sdml, stores this in table_name
     with open(filename, 'r') as fp:
         table_dictionary = load(fp)
-        sdtp_server_blueprint.table_server.add_sdtp_table_from_dictionary(table_dictionary)
+        sdtp_server_blueprint.table_server.add_sdtp_table_from_dictionary(Path(filename).stem, table_dictionary)
 
 # 
 # Load all the tables on SDTP_PATH.  
