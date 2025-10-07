@@ -1,9 +1,9 @@
 {
   "type": "RowTable",
   "schema": [
-    {"name": "Month_number", "type": "number"},
+    {"name": "month", "type": "number"},
     {"name": "Date", "type": "date"},
-    {"name": "Month", "type": "string"},
+    {"name": "Mon", "type": "string"},
     {"name": "Year", "type": "number"},
     {"name": "Army", "type": "number"},
     {"name": "Disease", "type": "number"},
